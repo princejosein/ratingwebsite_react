@@ -10,6 +10,7 @@ import RestaurantIcon from "@material-ui/icons/Restaurant";
 import LoginIcon from "@material-ui/icons/ArrowRightAlt";
 import { Link, Redirect } from "react-router-dom";
 import Hidden from "@material-ui/core/Hidden";
+import MailIcon from '@material-ui/icons/Mail';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +29,12 @@ const useStyles = makeStyles((theme) => ({
     color: "inherit",
     textDecoration: "none",
   },
+  stickToTop: {
+    width: "100%",
+    position: "fixed",
+    top: 0,
+    zIndex:"1000"
+  },
 }));
 
 export const Navbar = () => {
@@ -45,7 +52,7 @@ export const Navbar = () => {
   }
 
   return (
-    <div className={classes.root}>
+    <div className={classes.stickToTop}>
       <AppBar position='static'>
         <Toolbar>
           <IconButton
@@ -83,6 +90,20 @@ export const Navbar = () => {
               <Hidden only={["xs"]}>Restaurents</Hidden>
             </Button>
           </Link>
+
+          
+          <Link to='/Contact' className={classes.btnMenu}>
+            <Button
+              color='inherit'
+              variant='outlined'
+              color='inherit'
+              className={classes.button}
+              startIcon={<MailIcon />}
+            >
+              <Hidden only={["xs"]}>Contact</Hidden>
+            </Button>
+          </Link>
+
           { login ? 
           (
           <Button

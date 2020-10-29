@@ -36,7 +36,6 @@ const useStyles = makeStyles({
 });
 
 export const SingleCard = ({ moviesProp, currentPage }) => {
-   console.log(currentPage)
   const [movieState, setMovieState] = useState(moviesProp);
   // const [pageState, setPage] = useState(currentPage)
   const classes = useStyles();
