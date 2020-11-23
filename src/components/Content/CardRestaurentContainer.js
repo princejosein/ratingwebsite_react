@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
 import Hidden from "@material-ui/core/Hidden";
+import setAuthToken from '../../utils/setAuthToken'
 
 const useStyles = makeStyles((theme) => ({
   btnMenu: {
@@ -52,14 +53,24 @@ export const CardRestaurentContainer = () => {
     try {
       let res = '';
       // const res = await axios.get("https://nz-rating-app.herokuapp.com/api/restaurents/");
+      //res = await axios.get(`http://127.0.0.1:8000/api/restaurents_filter/?search=${search}`);
       if(search && search != null && search !== '')
       {
         setRestaurent([]);
-        res = await axios.get(`http://127.0.0.1:8000/api/restaurents_filter/?search=${search}`);
+        const AuthToken = `Token ${localStorage.getItem('token')}`;
+        alert(AuthToken)
+        res = await axios.get(`${process.env.REACT_APP_API_URL}/api/restaurents_filter/?search=${search}`,{
+          headers: {
+            'Authorization': `token ${AuthToken}`
+          }
+        });
         setRestaurent(res.data.results)
       } else {
+        const AuthToken = `Token ${localStorage.getItem('token')}`;
+        axios.defaults.headers.common["Authorization"] =
+        AuthToken
         setRestaurent([]);
-        res = await axios.get(`http://127.0.0.1:8000/api/restaurents/`)
+        res = await axios.get(`${process.env.REACT_APP_API_URL}/api/restaurents/`)
         setRestaurent(res.data.results);
       }
     } catch (error) {

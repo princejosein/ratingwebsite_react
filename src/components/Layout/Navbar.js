@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -11,6 +11,7 @@ import LoginIcon from "@material-ui/icons/ArrowRightAlt";
 import { Link, Redirect } from "react-router-dom";
 import Hidden from "@material-ui/core/Hidden";
 import MailIcon from '@material-ui/icons/Mail';
+import StarsIcon from '@material-ui/icons/Stars';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -106,6 +107,18 @@ export const Navbar = () => {
 
           { login ? 
           (
+            <Fragment>
+            <Link to='/MyRatings' className={classes.btnMenu}>
+            <Button
+              color='inherit'
+              variant='outlined'
+              color='inherit'
+              className={classes.button}
+              startIcon={<StarsIcon />}
+            >
+              <Hidden only={["xs"]}>My Ratings</Hidden>
+            </Button>
+          </Link>
           <Button
           onClick={logout}
               color='inherit'
@@ -116,6 +129,7 @@ export const Navbar = () => {
             >
             <Hidden only={["xs"]}>Logout</Hidden>
             </Button>
+            </Fragment>
             ) : (
             <Link to="/Login" className={classes.btnMenu}>
             <Button

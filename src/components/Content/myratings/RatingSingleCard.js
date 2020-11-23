@@ -36,7 +36,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const SingleCard = ({ moviesProp, currentPage }) => {
+export const RatingSingleCard = ({ moviesProp, currentPage }) => {
   let history = useHistory();
   const [movieState, setMovieState] = useState(moviesProp);
   // const [pageState, setPage] = useState(currentPage)
@@ -78,7 +78,7 @@ export const SingleCard = ({ moviesProp, currentPage }) => {
   };
   async function getMovies() {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/movies/?page=${currentPage}`);
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/my_ratings`);
       setMovieState(res.data.results);
     } catch (error) {
       console.error(error);
@@ -87,10 +87,10 @@ export const SingleCard = ({ moviesProp, currentPage }) => {
   return movieState.map((movie, index) => (
     <Grid item xs={12} sm={6} md={6} lg={4} m='3' key={index}>
       <Card >
-        <CardMedia image={movie.imageurl} className={classes.image} />
+        <CardMedia image={movie.movie_item.imageurl} className={classes.image} />
         <CardContent>
           <Typography gutterBottom variant='h5' component='h2'>
-            {movie.title}
+            {movie.movie_item.title}
           </Typography>
           <Box component='fieldset' borderColor='transparent'>
             <Typography
@@ -98,11 +98,11 @@ export const SingleCard = ({ moviesProp, currentPage }) => {
               gutterBottom
               style={{ justifyContent: "center" }}
             >
-              {movie.avg_rating} ({movie.no_of_ratings})
+              {movie.stars} 
             </Typography>
             <Rating
-              name={"" + movie.id}
-              value={movie.avg_rating}
+              name={"" + movie.movie_item.id}
+              value={movie.stars}
               onChange={(e) => {
                 rateClick(e);
               }}
@@ -110,7 +110,7 @@ export const SingleCard = ({ moviesProp, currentPage }) => {
             />
           </Box>
           <Typography variant='body1' gutterBottom >
-            {movie.description}
+            {movie.movie_item.description}
           </Typography>
         </CardContent>
 
@@ -120,7 +120,7 @@ export const SingleCard = ({ moviesProp, currentPage }) => {
             color='primary'
             className={classes.button}
             endIcon={<StarsIcon />}
-            onClick={(e) => detailsClick(movie.id)}
+            onClick={(e) => detailsClick(movie.movie_item.id)}
             name={"" + movie.id}
           >
             Details

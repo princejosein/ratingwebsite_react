@@ -67,12 +67,13 @@ export const CardContainer = () => {
       if(search && search != null && search !== '')
       {
         setMovies([]);
-        res = await axios.get(`http://127.0.0.1:8000/api/movies_filter/?page=${page}&search=${search}`);
+        res = await axios.get(`${process.env.REACT_APP_API_URL}/api/movies_filter/?page=${page}&search=${search}`);
         setMovies(res.data.results)
         setPageState({totalPage:1, currentPage:1})
       } else {
         setMovies([]);
-        res = await axios.get(`http://127.0.0.1:8000/api/movies/?page=${page}`)
+        console.log(process.env.REACT_APP_API_URL)
+        res = await axios.get(`${process.env.REACT_APP_API_URL}/api/movies/?page=${page}`)
         setMovies(res.data.results);
         setPageState({totalPage:res.data.total_pages, currentPage:page})
       }

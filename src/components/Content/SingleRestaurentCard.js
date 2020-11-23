@@ -54,7 +54,7 @@ export const SingleRestaurentCard = ({ restaurentsProp }) => {
         const AuthToken = `Token ${localStorage.getItem('token')}`;
         axios.defaults.headers.common["Authorization"] = AuthToken
         const res = await axios.post(
-          `https://nz-rating-app.herokuapp.com/api/restaurents/${Id}/restaurent_rating/`,
+          `${process.env.REACT_APP_API_URL}/api/restaurents/${Id}/restaurent_rating/`,
           {
             stars: Rate,
           }
@@ -72,7 +72,7 @@ export const SingleRestaurentCard = ({ restaurentsProp }) => {
   }
   async function getRestaurents() {
     try {
-      const res = await axios.get("https://nz-rating-app.herokuapp.com/api/restaurents/");
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/restaurents/`);
       // setRestaurent(res.data);
       setRestaurent(res.data.results);
     } catch (error) {

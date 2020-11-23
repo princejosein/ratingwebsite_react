@@ -44,7 +44,9 @@ export const Login = () => {
           'username':username,
           'password':password
         }
-        const res = await axios.post('https://nz-rating-app.herokuapp.com/auth/', data);
+        //http://127.0.0.1:8000
+        //https://nz-rating-app.herokuapp.com/auth/
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/`, data);
         localStorage.setItem("token", res.data.token);
         window.location.reload();
       } catch (error) {
@@ -58,7 +60,7 @@ export const Login = () => {
           'username':username,
           'password':password
         }
-        const res = await axios.post('https://nz-rating-app.herokuapp.com/api/users/', data);
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/users/`, data);
         alert('Registered. Please login now')
         setIsLoginView(true)
       } catch (error) {

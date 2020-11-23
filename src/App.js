@@ -9,6 +9,8 @@ import Contact from "./components/Content/Contact";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
+import MovieDetail from "./components/Content/MovieDetail"
+import { RatingCardContainer } from "./components/Content/myratings/RatingCardContainer"
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -32,16 +34,10 @@ function App() {
                 <Route exact path='/' component={CardContainer} />
                 <Route exact path='/Contact' component={Contact} />
                 <Route exact path='/Movies' component={CardContainer} />
-                <Route
-                  exact
-                  path='/Restaurents'
-                  component={CardRestaurentContainer}
-                />
-                <Route
-                  exact
-                  path='/Login'
-                  component={Login}
-                />
+                <Route exact path='/Movie/:movie_id' component={MovieDetail} />
+                <Route exact path='/MyRatings' component={RatingCardContainer} />
+                <Route exact path='/Restaurents' component={CardRestaurentContainer} />
+                <Route exact path='/Login' component={Login} />
               </Switch>
             </Grid>
             <Grid item xs={false} sm={2}></Grid>
