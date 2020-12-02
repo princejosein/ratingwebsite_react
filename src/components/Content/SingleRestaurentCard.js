@@ -109,7 +109,7 @@ export const SingleRestaurentCard = ({ restaurentsProp }) => {
           </Typography>
         </CardContent>
 
-        {/* <CardActions style={{ justifyContent: "center" }}>
+        <CardActions style={{ justifyContent: "center" }}>
           <Button
             variant='contained'
             color='primary'
@@ -118,7 +118,7 @@ export const SingleRestaurentCard = ({ restaurentsProp }) => {
           >
             Rate It
           </Button>
-        </CardActions> */}
+        </CardActions>
       </Card>
     </Grid>
   ));

@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import StarsIcon from '@material-ui/icons/Stars';
 import GroupIcon from '@material-ui/icons/Group';
 import Button from '@material-ui/core/Button';
+import CommentComponent from './CommentComponent'
 
 const useStyles = makeStyles((theme) => ({
     movieDetailsClass: {
@@ -29,9 +30,12 @@ const useStyles = makeStyles((theme) => ({
 
 export const MovieDetail = () => {
     const classes = useStyles();
-    const [movie, setMovie] = useState([]);
-
+    const [movie, setMovie] = useState({});
+    const [comments, setComments] = useState([]);
+    const [commentSize, setCommentSize] = useState(0);
+    const [user, setUser] = useState(0);
     let { movie_id } = useParams();
+    // const {movie, comments, commentSize} = movieItem
     useEffect(() => {
         getMovie();
       }, []);
@@ -41,9 +45,16 @@ export const MovieDetail = () => {
           if(movie_id)
           {
             setMovie({});
+            const AuthToken = `Token ${localStorage.getItem('token')}`;
+            axios.defaults.headers.common["Authorization"] =
+            AuthToken
             res = await axios.get(`${process.env.REACT_APP_API_URL}/api/movies/${movie_id}`)
-            console.log(res.data)
-            setMovie(res.data);
+            setMovie(res.data.movie);
+            console.log(res.data.comments)
+            setComments(res.data.comments);
+            setCommentSize(res.data.comments.length);
+            setUser(res.data.user_id)
+            console.log(comments)
           }
           
         } catch (error) {
@@ -98,6 +109,10 @@ export const MovieDetail = () => {
             
           
             <p>{movie.description}</p>
+
+            <h4>Comments {commentSize}</h4>
+            <hr></hr>
+            <CommentComponent comments={comments} size={commentSize} user={user} movie_id={movie_id} />
             <Link to="/movies">
             <Button variant="contained" color="primary" className={classes.linkButton}>
                 Back
